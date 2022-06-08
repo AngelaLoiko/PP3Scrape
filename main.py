@@ -6,18 +6,18 @@ import re
 # from headers import HEADERS
 KEYWORDS = ['дизайн', 'фото', 'web', 'python','костюм', 'финансисты ']
 # KEYWORDS = ['ужас']
-rkeywords = KEYWORDS[0]
-for kw in KEYWORDS[1:]:
-    rkeywords += f'|{kw}'
-print(rkeywords)
-
-useragent_ = fake_useragent.UserAgent()
-HEADERS = {'user-agent': useragent_.random}
 
 urlfull='https://habr.com/ru/all'
 url='https://habr.com'
 
 if __name__ == '__main__':    
+    rkeywords = KEYWORDS[0]
+    for kw in KEYWORDS[1:]:
+        rkeywords += f'|{kw}'
+    print(rkeywords)
+
+    useragent_ = fake_useragent.UserAgent()
+    HEADERS = {'user-agent': useragent_.random}
     pageexist = True
     while pageexist:
         try:
