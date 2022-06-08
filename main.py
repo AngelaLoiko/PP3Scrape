@@ -10,17 +10,21 @@ KEYWORDS = ['дизайн', 'фото', 'web', 'python','костюм', 'фин�
 urlfull='https://habr.com/ru/all'
 url='https://habr.com'
 
+# максимальное количество для пагинации страниц со статьями
+max_count_of_pages = 50
+
 if __name__ == '__main__':    
     rkeywords = KEYWORDS[0]
     for kw in KEYWORDS[1:]:
         rkeywords += f'|{kw}'
     print(rkeywords)
 
-    useragent_ = fake_useragent.UserAgent()
-    HEADERS = {'user-agent': useragent_.random}
-    pageexist = True
-    while pageexist:
+    # useragent_ = fake_useragent.UserAgent()
+    # HEADERS = {'user-agent': useragent_.random}
+    while True and max_count_of_pages:
         try:
+            useragent_ = fake_useragent.UserAgent()
+            HEADERS = {'user-agent': useragent_.random}
             response = requests.get(urlfull, headers=HEADERS)
             response.raise_for_status()
         except Exception:
@@ -40,8 +44,8 @@ if __name__ == '__main__':
                 print(f'{date} - {title} - {link}')
         try:
             urlfull = url + soup.find(id="pagination-next-page")['href']
-            print(urlfull)
+            print(f'\nСледующие статьи на странице: {urlfull}')
         except KeyError:
             print('Больше нет страниц')
-            # pageexist = False
             break
+        max_count_of_pages -= 1
